@@ -5,7 +5,7 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var content= {
+var articleOne= {
     title:'article-one',
     heading:'article one',
     date:'august 10',
@@ -19,47 +19,47 @@ function createTemplate (data) {
     var content=data.content;
 }
 
-var htmlTemplate=
-<!doctype html>
-    <head>
-        <title>
-            ${title}
-        </title>
-        <meta name="viewport" content="width=device-width, initial- scale=1" />
-        <link href="/ui/style.css" rel="stylesheet" />
-         </head>    
-    <body>
-        <div>
-         <a href="/">home</a>    
-        </div>
-        </hr>
-         <div>
-        <h1>
-            ${heading}
-            </h1>
-        </div>
-        <div class="container">
-        <div>
-            ${date}
-        </div>
-        ${content}
-        <div>
-        </div>
+var htmlTemplate=`
+    <!doctype html>
+        <head>
+            <title>
+                ${title}
+            </title>
+            <meta name="viewport" content="width=device-width, initial- scale=1" />
+            <link href="/ui/style.css" rel="stylesheet" />
+             </head>    
+        <body>
+            <div>
+             <a href="/">home</a>    
+            </div>
+            </hr>
+             <div>
+            <h1>
+                ${heading}
+                </h1>
+            </div>
+            <div class="container">
+            <div>
+                ${date}
+            </div>
+            ${content}
+            <div>
+            </div>
+            
+            </div>
+        </body>
         
-        </div>
-    </body>
-    
-</html>
-;
+    </html>
+    `
+    ;
 return htmlTemplate;
-
-
+}
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
 app.get('/article-one', function(req,res){
-  res.send(createTemplate('article one'));
+  res.send(createTemplate('articleOne'));
 });
 app.get('/article-two', function(req,res){
   res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
